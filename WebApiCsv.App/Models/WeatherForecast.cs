@@ -1,4 +1,4 @@
-namespace WebApiCsv.App
+namespace WebApiCsv.App.Models
 {
     public class WeatherForecast
     {

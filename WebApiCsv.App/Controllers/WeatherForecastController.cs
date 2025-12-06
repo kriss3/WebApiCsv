@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WebApiCsv.App.Models;
 
 namespace WebApiCsv.App.Controllers
 {
