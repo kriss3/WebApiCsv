@@ -1,4 +1,6 @@
-﻿namespace WebApiCsv.App.Repositories;
+﻿using WebApiCsv.App.Models;
+
+namespace WebApiCsv.App.Repositories;
 
 public sealed record ThirdPartyResult(bool IsSuccess, string? ErrorMessage);
 
