@@ -1,5 +1,12 @@
-﻿namespace WebApiCsv.App.Validation;
+﻿using System.ComponentModel.DataAnnotations;
+using WebApiCsv.App.Models;
 
-public class ItemImportValidationEngine
+namespace WebApiCsv.App.Validation;
+
+public class ItemImportValidationEngine : IItemImportValidationEngine
 {
+    public Task<ValidationResult> ValidateAsync(ItemImportRow row, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
 }
