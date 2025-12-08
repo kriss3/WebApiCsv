@@ -2,3 +2,7 @@
 
 public sealed record ThirdPartyResult(bool IsSuccess, string? ErrorMessage);
 
+public interface IThirdPartyItemRepository
+{
+	Task<ThirdPartyResult> SendItemAsync(ItemImportRow row, CancellationToken cancellationToken = default);
+}
