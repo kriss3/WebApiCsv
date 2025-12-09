@@ -9,5 +9,10 @@ public class ItemImportRowValidator : AbstractValidator<ItemImportRow>
 		["Flower", "Concentrate", "Edible", "Topical"];
 
 	public ItemImportRowValidator()
-	{ }
+	{
+		RuleFor(x => x.ItemName)
+			.NotEmpty().WithMessage("ItemName is required.");
+
+
+	}
 }
