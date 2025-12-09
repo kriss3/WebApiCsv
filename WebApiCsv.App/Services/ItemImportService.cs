@@ -19,6 +19,8 @@ public sealed class ItemImportService : IItemImportService
 
     public Task<byte[]> ProcessImportAsync(IFormFile csvFile, CancellationToken cancellationToken = default)
     {
-        
-    }
+		if (csvFile is null || csvFile.Length == 0)
+			throw new ArgumentException("CSV file is required.", nameof(csvFile));
+
+	}
 }
