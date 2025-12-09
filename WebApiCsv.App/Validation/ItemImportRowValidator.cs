@@ -20,5 +20,13 @@ public class ItemImportRowValidator : AbstractValidator<ItemImportRow>
 			.NotEmpty().WithMessage("ItemCategory is required.")
 			.Must(cat => AllowedCategories.Contains(cat))
 			.WithMessage($"ItemCategory must be one of: {string.Join(", ", AllowedCategories)}.");
+
+		// Conditional rule for Flower
+		When(x => x.ItemCategory == "Flower", () =>
+		{
+			RuleFor(x => x.Quantity)
+				.NotNull().WithMessage("Quantity is required for Flower.")
+				.GreaterThan(0).WithMessage("Quantity must be greater than zero for Flower.");
+		});
 	}
 }
