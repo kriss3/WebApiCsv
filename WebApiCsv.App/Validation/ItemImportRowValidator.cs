@@ -13,6 +13,7 @@ public class ItemImportRowValidator : AbstractValidator<ItemImportRow>
 		RuleFor(x => x.ItemName)
 			.NotEmpty().WithMessage("ItemName is required.");
 
-
+		RuleFor(x => x.ItemNumber)
+			.NotEmpty().WithMessage("ItemNumber is required.");
 	}
 }
