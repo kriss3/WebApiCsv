@@ -15,5 +15,10 @@ public class ItemImportRowValidator : AbstractValidator<ItemImportRow>
 
 		RuleFor(x => x.ItemNumber)
 			.NotEmpty().WithMessage("ItemNumber is required.");
+
+		RuleFor(x => x.ItemCategory)
+			.NotEmpty().WithMessage("ItemCategory is required.")
+			.Must(cat => AllowedCategories.Contains(cat))
+			.WithMessage($"ItemCategory must be one of: {string.Join(", ", AllowedCategories)}.");
 	}
 }
