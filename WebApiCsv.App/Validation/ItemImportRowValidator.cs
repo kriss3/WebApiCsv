@@ -28,5 +28,6 @@ public class ItemImportRowValidator : AbstractValidator<ItemImportRow>
 				.NotNull().WithMessage("Quantity is required for Flower.")
 				.GreaterThan(0).WithMessage("Quantity must be greater than zero for Flower.");
 		});
+		// add more rules for columns here when necessary.
 	}
 }
