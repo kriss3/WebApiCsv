@@ -1,4 +1,5 @@
 ﻿
+using System.Globalization;
 using WebApiCsv.App.Models;
 using WebApiCsv.App.Repositories;
 using WebApiCsv.App.Validation;
@@ -29,7 +30,12 @@ public sealed class ItemImportService : IItemImportService
 		using (var stream = csvFile.OpenReadStream())
 		using (var reader = new StreamReader(stream))
 		{
-
+			var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+			{
+				HasHeaderRecord = true,
+				TrimOptions = TrimOptions.Trim,
+				IgnoreBlankLines = true
+			};
 		}
 	}
 }
