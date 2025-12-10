@@ -18,8 +18,8 @@ public sealed class ItemImportService : IItemImportService
         _thirdPartyRepository = thirdPartyRepository;
     }
 
-    public Task<byte[]> ProcessImportAsync(IFormFile csvFile, CancellationToken cancellationToken = default)
-    {
+	public Task<byte[]> ProcessImportAsync(IFormFile csvFile, CancellationToken cancellationToken = default)
+	{
 		if (csvFile is null || csvFile.Length == 0)
 			throw new ArgumentException("CSV file is required.", nameof(csvFile));
 
@@ -27,6 +27,9 @@ public sealed class ItemImportService : IItemImportService
 
 		// 1. Read input CSV
 		using (var stream = csvFile.OpenReadStream())
+		using (var reader = new StreamReader(stream))
+		{
 
+		}
 	}
 }
