@@ -3,6 +3,7 @@ using System.Globalization;
 using WebApiCsv.App.Models;
 using WebApiCsv.App.Repositories;
 using WebApiCsv.App.Validation;
+using CsvHelper;
 
 namespace WebApiCsv.App.Services;
 
@@ -36,6 +37,15 @@ public sealed class ItemImportService : IItemImportService
 				TrimOptions = TrimOptions.Trim,
 				IgnoreBlankLines = true
 			};
+
+			using var csv = new CsvReader(reader, config);
+
+			var records = csv.GetRecords<ItemImportRow>();
+
+			foreach (var record in records)
+			{
+
+			}
 		}
 	}
 }
