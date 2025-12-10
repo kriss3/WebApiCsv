@@ -1,4 +1,5 @@
 ﻿
+using WebApiCsv.App.Models;
 using WebApiCsv.App.Repositories;
 using WebApiCsv.App.Validation;
 
@@ -21,6 +22,11 @@ public sealed class ItemImportService : IItemImportService
     {
 		if (csvFile is null || csvFile.Length == 0)
 			throw new ArgumentException("CSV file is required.", nameof(csvFile));
+
+		var resultRows = new List<ItemImportRowResult>();
+
+		// 1. Read input CSV
+		using (var stream = csvFile.OpenReadStream())
 
 	}
 }
