@@ -82,7 +82,11 @@ public sealed class ItemImportService : IItemImportService
 							?? "Unknown error from third-party service.";
 					}
 				}
+				resultRows.Add(rowResult);
 			}
 		}
+
+		// 4. Build output CSV with Status + ErrorMessage
+		using var outputStream = new MemoryStream();
 	}
 }
