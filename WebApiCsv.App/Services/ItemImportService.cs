@@ -4,6 +4,7 @@ using WebApiCsv.App.Models;
 using WebApiCsv.App.Repositories;
 using WebApiCsv.App.Validation;
 using CsvHelper;
+using CsvHelper.Configuration;
 
 namespace WebApiCsv.App.Services;
 
@@ -44,6 +45,15 @@ public sealed class ItemImportService : IItemImportService
 
 			foreach (var record in records)
 			{
+				cancellationToken.ThrowIfCancellationRequested();
+
+				var rowResult = new ItemImportRowResult
+				{
+					ItemName = record.ItemName,
+					ItemNumber = record.ItemNumber,
+					ItemCategory = record.ItemCategory,
+					Quantity = record.Quantity
+				};
 
 			}
 		}
