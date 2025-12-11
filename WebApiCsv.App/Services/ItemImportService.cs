@@ -21,7 +21,7 @@ public sealed class ItemImportService : IItemImportService
         _thirdPartyRepository = thirdPartyRepository;
     }
 
-	public Task<byte[]> ProcessImportAsync(IFormFile csvFile, CancellationToken cancellationToken = default)
+	public async Task<byte[]> ProcessImportAsync(IFormFile csvFile, CancellationToken cancellationToken = default)
 	{
 		if (csvFile is null || csvFile.Length == 0)
 			throw new ArgumentException("CSV file is required.", nameof(csvFile));
@@ -54,6 +54,10 @@ public sealed class ItemImportService : IItemImportService
 					ItemCategory = record.ItemCategory,
 					Quantity = record.Quantity
 				};
+
+				// 2. Validation
+				var validationResult = await _validationEngine.ValidateAsync(record, cancellationToken);
+
 
 			}
 		}
