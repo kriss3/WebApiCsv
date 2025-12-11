@@ -88,5 +88,22 @@ public sealed class ItemImportService : IItemImportService
 
 		// 4. Build output CSV with Status + ErrorMessage
 		using var outputStream = new MemoryStream();
+        using var writer = new StreamWriter(outputStream, leaveOpen: true);
+		using (var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture))
+		{
+			csvWriter.WriteHeader<ItemImportRowResult>();
+			await csvWriter.NextRecordAsync();
+
+			foreach (var row in resultRows)
+			{
+				cancellationToken.ThrowIfCancellationRequested();
+				csvWriter.WriteRecord(row);
+				await csvWriter.NextRecordAsync();
+			}
+
+			await writer.FlushAsync(cancellationToken);
+		}
+
+		return outputStream.ToArray();
 	}
 }
