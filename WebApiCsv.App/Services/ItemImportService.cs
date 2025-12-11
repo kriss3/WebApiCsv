@@ -58,7 +58,30 @@ public sealed class ItemImportService : IItemImportService
 				// 2. Validation
 				var validationResult = await _validationEngine.ValidateAsync(record, cancellationToken);
 
+				if (!validationResult.IsValid)
+				{
+					rowResult.Status = ItemImportStatus.FailedValidation.ToStatusString();
+					rowResult.ErrorMessage = string.Join(
+						"; ",
+						validationResult.Errors.Select(e => e.ErrorMessage));
+				}
+				else
+				{
+					// 3. Third-party call (only on valid rows)
+					var thirdPartyResult = await _thirdPartyRepository.SendItemAsync(record, cancellationToken);
 
+					if (thirdPartyResult.IsSuccess)
+					{
+						rowResult.Status = ItemImportStatus.Success.ToStatusString();
+						rowResult.ErrorMessage = string.Empty;
+					}
+					else
+					{
+						rowResult.Status = ItemImportStatus.FailedThirdParty.ToStatusString();
+						rowResult.ErrorMessage = thirdPartyResult.ErrorMessage
+							?? "Unknown error from third-party service.";
+					}
+				}
 			}
 		}
 	}
