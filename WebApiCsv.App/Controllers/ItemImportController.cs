@@ -6,7 +6,6 @@ namespace WebApiCsv.App.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Consumes("multipart/form-data")]
 public sealed class ItemImportController : ControllerBase
 {
 	private readonly IItemImportService _service;
@@ -14,5 +13,13 @@ public sealed class ItemImportController : ControllerBase
 	public ItemImportController(IItemImportService service)
 	{
 		_service = service;
+	}
+
+	[HttpPost("import")]
+	[Consumes("multipart/form-data")]
+	public async Task<IActionResult> Import([FromForm] IFormFile file, CancellationToken cancellationToken)
+	{ 
+	
+	
 	}
 }
