@@ -18,8 +18,10 @@ public sealed class ItemImportController : ControllerBase
 	[HttpPost("import")]
 	[Consumes("multipart/form-data")]
 	public async Task<IActionResult> Import([FromForm] IFormFile file, CancellationToken cancellationToken)
-	{ 
-	
-	
+	{
+		if (file is null || file.Length == 0)
+			return BadRequest("File is required.");
+
+
 	}
 }
