@@ -1,21 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApiCsv.App.Services;
 
 namespace WebApiCsv.App.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public sealed class ItemImportController : ControllerBase
+public sealed class ItemImportController(IItemImportService service) : ControllerBase
 {
-	private readonly IItemImportService _service;
+	private readonly IItemImportService _service = service;
 
-	public ItemImportController(IItemImportService service)
-	{
-		_service = service;
-	}
-
-	[HttpPost("import")]
+    [HttpPost("import")]
 	[Consumes("multipart/form-data")]
 	public async Task<IActionResult> Import([FromForm] IFormFile file, CancellationToken cancellationToken)
 	{
@@ -26,7 +20,5 @@ public sealed class ItemImportController : ControllerBase
 		var outName = $"import-result-{DateTime.UtcNow:yyyyMMddHHmm}.csv";
 
 		return File(bytes, "text/csv", outName);
-
-
 	}
 }
