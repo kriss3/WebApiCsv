@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApiCsv.App.Services;
 
 namespace WebApiCsv.App.Controllers;
 
@@ -7,4 +8,11 @@ namespace WebApiCsv.App.Controllers;
 [Route("api/[controller]")]
 [Consumes("multipart/")]
 public sealed class ItemImportController : ControllerBase
-{ }
+{
+	private readonly IItemImportService _service;
+
+	public ItemImportController(IItemImportService service)
+	{
+		_service = service;
+	}
+}
