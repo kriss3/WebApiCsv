@@ -22,6 +22,11 @@ public sealed class ItemImportController : ControllerBase
 		if (file is null || file.Length == 0)
 			return BadRequest("File is required.");
 
+		var bytes = await _service.ProcessImportAsync(file, cancellationToken);
+		var outName = $"import-result-{DateTime.UtcNow:yyyyMMddHHmm}.csv";
+
+		return File(bytes, "text/csv", outName);
+
 
 	}
 }
