@@ -11,14 +11,18 @@ public sealed class ItemImportController(IItemImportService service) : Controlle
 
     [HttpPost("import")]
 	[Consumes("multipart/form-data")]
-	public async Task<IActionResult> Import([FromForm] IFormFile file, CancellationToken cancellationToken)
+	public async Task<IActionResult> Import(
+		[FromForm] IFormFile file, 
+		CancellationToken cancellationToken)
 	{
 		if (file is null || file.Length == 0)
 			return BadRequest("File is required.");
+		var originalFileName = Path.GetFileNameWithoutExtension(file.FileName);
+		
 
 		var bytes = await _service.ProcessImportAsync(file, cancellationToken);
-		var outName = $"import-result-{DateTime.UtcNow:yyyyMMddHHmm}.csv";
+		var outputFileName = $"{originalFileName}-Results-{timestamp}.csv";
 
-		return File(bytes, "text/csv", outName);
+		return File(bytes, "text/csv", outputFileName);
 	}
 }
