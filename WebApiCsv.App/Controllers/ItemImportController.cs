@@ -18,7 +18,8 @@ public sealed class ItemImportController(IItemImportService service) : Controlle
 		if (file is null || file.Length == 0)
 			return BadRequest("File is required.");
 		var originalFileName = Path.GetFileNameWithoutExtension(file.FileName);
-		
+		var timestamp = DateTime.UtcNow.ToString("yyyyMMddHHmm");
+
 
 		var bytes = await _service.ProcessImportAsync(file, cancellationToken);
 		var outputFileName = $"{originalFileName}-Results-{timestamp}.csv";
