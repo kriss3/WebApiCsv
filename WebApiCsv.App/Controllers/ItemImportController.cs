@@ -6,7 +6,7 @@ namespace WebApiCsv.App.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Consumes("multipart/")]
+[Consumes("multipart/form-data")]
 public sealed class ItemImportController : ControllerBase
 {
 	private readonly IItemImportService _service;
